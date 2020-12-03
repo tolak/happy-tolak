@@ -1,0 +1,13 @@
+
+[workspace]
+
+exclude = [
+	"substrate",
+]
+
+members = [
+	"executor",
+	"node",
+	"runtime",
+	"rpc",
+]
