@@ -1,13 +1,13 @@
-
 [workspace]
-
 exclude = [
 	"substrate",
 ]
 
 members = [
 	"executor",
+	"inspect",
 	"node",
-	"runtime",
+	"primitives",
 	"rpc",
+	"runtime",
 ]
