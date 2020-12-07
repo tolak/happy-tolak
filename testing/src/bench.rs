@@ -112,14 +112,22 @@ impl Clone for BenchDb {
 			seed_dir.to_string_lossy(),
 			dir.path().to_string_lossy(),
 		);
-		let seed_db_files = std::fs::read_dir(seed_dir)
-			.expect("failed to list file in seed dir")
-			.map(|f_result|
-				f_result.expect("failed to read file in seed db")
-					.path()
-			).collect();
+
+		// let seed_db_files = std::fs::read_dir(seed_dir)
+		// 	.expect("failed to list file in seed dir")
+		// 	.map(|f_result|
+		// 		f_result.expect("failed to read file in seed db")
+		// 			.path()
+		// 	).collect();
+
+		// work around to fix compile error
+		let mut seed_db_files_vec = Vec::new();
+		let seed_db_files = std::fs::read_dir(seed_dir).unwrap();
+		for file in seed_db_files {
+			seed_db_files_vec.push(file.unwrap().path());
+		}
 		fs_extra::copy_items(
-			&seed_db_files,
+			seed_db_files_vec.as_slice(),
 			dir.path(),
 			&fs_extra::dir::CopyOptions::new(),
 		).expect("Copy of seed database is ok");
