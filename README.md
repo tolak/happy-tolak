@@ -15,10 +15,19 @@ rustup update nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
  ```
 
- - Build release target
+ - Build release node binary
  
 ```sh
 cargo build --release
 ```
 
 Then you can run ```tolak-node``` under ```target/release/```.
+
+ - Build a single WASM
+
+ ```sh
+ ./script/build-only-wasm.sh tolak-node-runtime
+ ```
+
+ Argument ```tolak-node-runtime``` is the package name of runtime. By default you 
+ can see WASM file ```tolak_node_runtime.wasm``` was created in current directory.
