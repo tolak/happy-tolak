@@ -24,7 +24,7 @@ pallet-indices = { version = "2.0.0", path = "../substrate/frame/indices" }
 sp-keyring = { version = "2.0.0", path = "../substrate/primitives/keyring" }
 node-executor = { version = "2.0.0", path = "../executor" }
 node-primitives = { version = "2.0.0", path = "../primitives" }
-node-runtime = { version = "2.0.0", path = "../runtime" }
+node-runtime = { version = "2.0.0", package = "tolak-node-runtime", path = "../runtime" }
 sp-core = { version = "2.0.0", path = "../substrate/primitives/core" }
 sp-io = { version = "2.0.0", path = "../substrate/primitives/io" }
 frame-support = { version = "2.0.0", path = "../substrate/frame/support" }
