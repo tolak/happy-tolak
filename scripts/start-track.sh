@@ -24,7 +24,6 @@ echo -e "Starting boot track node...\n   network is ${NET_NAME}\n   chainspec at
   --port 30666 \
   --ws-port 9966 \
   --rpc-port 9996 \
-  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
   --validator \
   --rpc-methods Unsafe \
   --name track \

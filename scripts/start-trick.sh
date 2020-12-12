@@ -24,7 +24,6 @@ echo -e "Starting boot trick node...\n   network is ${NET_NAME}\n   chainspec at
   --port 30555 \
   --ws-port 9955 \
   --rpc-port 9995 \
-  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
   --validator \
   --rpc-methods Unsafe \
   --name trick \

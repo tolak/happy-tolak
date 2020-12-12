@@ -24,7 +24,6 @@ echo -e "Starting boot tick node...\n   network is ${NET_NAME}\n   chainspec at 
   --port 30444 \
   --ws-port 9944 \
   --rpc-port 9994 \
-  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
   --validator \
   --rpc-methods Unsafe \
   --name tick \
