@@ -80,6 +80,9 @@ pallet-transaction-payment = { version = "2.0.0", default-features = false, path
 pallet-transaction-payment-rpc-runtime-api = { version = "2.0.0", default-features = false, path = "../substrate/frame/transaction-payment/rpc/runtime-api/" }
 pallet-vesting = { version = "2.0.0", default-features = false, path = "../substrate/frame/vesting" }
 
+# custom pallets
+asset-claim = { version = "0.1.0", package = "asset-claim", default-features = false, path = "../pallets/asset-claim" }
+
 [build-dependencies]
 wasm-builder-runner = { version = "1.0.5", package = "substrate-wasm-builder-runner", path = "../substrate/utils/wasm-builder-runner" }
 
@@ -144,6 +147,7 @@ std = [
 	"pallet-society/std",
 	"pallet-recovery/std",
 	"pallet-vesting/std",
+	"asset-claim/std",
 ]
 runtime-benchmarks = [
 	"frame-benchmarking",
