@@ -8,11 +8,9 @@ Tolak Chain is a substrate FRAME based chain build for tolak, for study and new 
  - Config you rustup toolchain
 
  ```sh
-rustup uninstall nightly
 rustup install nightly-2020-10-06
 rustup default nightly-2020-10-06
-rustup update nightly
-rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
  ```
 
  - Build release node binary
