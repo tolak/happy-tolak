@@ -4,13 +4,18 @@ use sp_std::vec::Vec;
 use sp_runtime::DispatchResult;
 
 use frame_support::{
-    decl_module, decl_storage, decl_event, decl_error, ensure, StorageMap
+    decl_module, decl_storage, decl_event, decl_error, ensure, StorageMap,
+    traits::{Currency, ExistenceRequirement, WithdrawReason}
 };
 use frame_system::ensure_signed;
+
+type BalanceOf<T> =
+    <<T as Trait>::ReserveCurrency as Currency<<T as frame_system::Trait>::AccountId>>::Balance;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
 pub trait Trait: frame_system::Trait {
     type Event: From<Event<Self>> + Into<<Self as frame_system::Trait>::Event>;
+    type ReserveCurrency: Currency<Self::AccountId>;
 }
 
 decl_storage! {
