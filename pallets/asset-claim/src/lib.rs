@@ -1,11 +1,15 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use sp_std::vec::Vec;
-use sp_runtime::DispatchResult;
+use sp_runtime::{DispatchResult, FixedPointOperand};
 
 use frame_support::{
     decl_module, decl_storage, decl_event, decl_error, ensure, StorageMap,
-    traits::{Currency, ExistenceRequirement, WithdrawReason}
+    traits::{Currency, ExistenceRequirement, WithdrawReason},
+    weights::{
+		Weight, DispatchInfo, PostDispatchInfo, GetDispatchInfo, Pays, WeightToFeePolynomial,
+		WeightToFeeCoefficient, DispatchClass,
+	},
 };
 use frame_system::ensure_signed;
 
@@ -16,6 +20,8 @@ type BalanceOf<T> =
 pub trait Trait: frame_system::Trait {
     type Event: From<Event<Self>> + Into<<Self as frame_system::Trait>::Event>;
     type ReserveCurrency: Currency<Self::AccountId>;
+	/// Convert a weight value into a deductible fee based on the currency type.
+	type WeightToFee: WeightToFeePolynomial<Balance=BalanceOf<Self>>;
 }
 
 decl_storage! {
@@ -48,6 +54,8 @@ decl_error! {
         NoAssetFound,
         /// The asset is claimed by another account, so caller can't revoke it.
         NotAssetOwner,
+        /// Unhandled error.
+        UnHandledError,
     }
 }
 
@@ -72,7 +80,7 @@ decl_module! {
             Proofs::<T>::insert(&proof, (&sender, current_block));
 
             // Emit an event that the claim was created.
-            Self::deposit_event(RawEvent::ClaimCreated(sender, proof));
+            Self::deposit_event(RawEvent::ClaimCreated(sender.clone(), proof));
         }
 
         /// Allow the owner to revoke their claim.
@@ -92,8 +100,10 @@ decl_module! {
             // Remove claim from storage.
             Proofs::<T>::remove(&proof);
 
+            // Self::pay_fee(sender, Self::weight_to_fee(weight));
+
             // Emit an event that the claim was erased.
-            Self::deposit_event(RawEvent::ClaimRevoked(sender, proof));
+            Self::deposit_event(RawEvent::ClaimRevoked(sender.clone(), proof));
         }
 
         /// Allow the owner to transfer their claim to another.
@@ -116,13 +126,41 @@ decl_module! {
 				Ok(())
 			})?;
 
+            // Self::pay_fee(sender, Self::weight_to_fee(weight));
+
             // Emit an event that the claim was erased.
-            Self::deposit_event(RawEvent::ClaimTransferd(sender, who, proof));
+            Self::deposit_event(RawEvent::ClaimTransferd(sender.clone(), who, proof));
         }
     }
 }
 
+impl<T: Trait> Module<T> {
 
+    fn weight_to_fee(weight: Weight) -> BalanceOf<T> {
+		T::WeightToFee::calc(weight)
+    }
+    
+    fn pay_fee(who: T::AccountId, amount: BalanceOf<T>) -> Result {
+        let _ = T::ReserveCurrency::withdraw(
+            &who,
+            balance_amount,
+            WithdrawReasons::Fee,
+            ExistenceRequirement::KeepAlive,
+        )
+        .map_err(|_| Error::UnHandledError)?;
+    
+        Ok(())
+    }
+}
+
+impl<T> Convert<Weight, BalanceOf<T>> for Module<T> where
+	T: Config,
+	BalanceOf<T>: FixedPointOperand,
+{
+	fn convert(weight: Weight) -> BalanceOf<T> {
+		Self::weight_to_fee(weight)
+	}
+}
 
 #[cfg(test)]
 mod tests {
