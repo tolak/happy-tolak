@@ -1,11 +1,13 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use sp_std::vec::Vec;
-use sp_runtime::{DispatchResult, FixedPointOperand};
+use sp_runtime::{
+    DispatchResult, FixedPointOperand,
+    traits::Convert};
 
 use frame_support::{
     decl_module, decl_storage, decl_event, decl_error, ensure, StorageMap,
-    traits::{Currency, ExistenceRequirement, WithdrawReason},
+    traits::{Currency, ExistenceRequirement, WithdrawReason, WithdrawReasons},
     weights::{
 		Weight, DispatchInfo, PostDispatchInfo, GetDispatchInfo, Pays, WeightToFeePolynomial,
 		WeightToFeeCoefficient, DispatchClass,
@@ -137,24 +139,24 @@ decl_module! {
 impl<T: Trait> Module<T> {
 
     fn weight_to_fee(weight: Weight) -> BalanceOf<T> {
-		T::WeightToFee::calc(weight)
+		T::WeightToFee::calc(&weight)
     }
     
-    fn pay_fee(who: T::AccountId, amount: BalanceOf<T>) -> Result {
+    fn pay_fee(who: T::AccountId, amount: BalanceOf<T>) -> DispatchResult {
         let _ = T::ReserveCurrency::withdraw(
             &who,
-            balance_amount,
-            WithdrawReasons::Fee,
+            amount,
+            WithdrawReason::Fee.into(),
             ExistenceRequirement::KeepAlive,
         )
-        .map_err(|_| Error::UnHandledError)?;
+        .map_err(|_| Error::<T>::UnHandledError)?;
     
         Ok(())
     }
 }
 
 impl<T> Convert<Weight, BalanceOf<T>> for Module<T> where
-	T: Config,
+	T: Trait,
 	BalanceOf<T>: FixedPointOperand,
 {
 	fn convert(weight: Weight) -> BalanceOf<T> {
