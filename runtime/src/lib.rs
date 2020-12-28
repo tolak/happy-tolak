@@ -892,7 +892,7 @@ impl pallet_vesting::Trait for Runtime {
 impl asset_claim::Trait for Runtime {
 	type Event = Event;
 	type ReserveCurrency = Balances;
-	type WeightToFee = IdentityFee<Balance>;
+	type WeightInfo = weights::asset_claim::WeightInfo;
 }
 
 construct_runtime!(
