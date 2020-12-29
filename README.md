@@ -29,3 +29,44 @@ Then you can run ```tolak-node``` under ```target/release/```.
 
  Argument ```tolak-node-runtime``` is the package name of runtime. By default you 
  can see WASM file ```tolak_node_runtime.wasm``` was created in current directory.
+
+# Run benchmarks
+
+ - Enable benchmarks by running:
+
+ ```sh
+cd cli
+cargo build --release --features runtime-benchmarks
+ ```
+
+ - Get a list of the available benchmarks by running:
+
+```sh
+./target/release/substrate benchmark --chain dev --pallet "*" --extrinsic "*" --repeat 0
+```
+
+ - run benchmark for a specific pallet(make sure pallet have written pallet benchmark test case) by running:
+
+ ```sh
+./target/release/substrate benchmark \
+--chain dev \
+--execution=wasm \
+--wasm-execution=compiled \
+--pallet pallet_balances \
+--extrinsic "*" \
+--steps 10 \
+--repeat 2 \
+--weight-trait \
+--output
+```
+
+This will output a file pallet_name.rs which implements the WeightInfo trait, add definition of WeightInfo in this pallet and give the dispatch a weight notation like this:
+
+```sh
+#[weight = T::WeightInfo::revoke_claim()]
+fn revoke_claim(origin, proof: Vec<u8>) {
+    // dispatch stuff
+}
+```
+
+More information about substrate benchmarking can be found [here](https://github.com/paritytech/substrate/tree/master/frame/benchmarking)
