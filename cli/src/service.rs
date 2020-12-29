@@ -24,7 +24,7 @@ use std::sync::Arc;
 use sc_consensus_babe;
 use grandpa::{self, FinalityProofProvider as GrandpaFinalityProofProvider};
 use node_primitives::Block;
-use node_runtime::RuntimeApi;
+use tolak_node_runtime::RuntimeApi;
 use sc_service::{
 	config::{Role, Configuration}, error::{Error as ServiceError},
 	RpcHandlers, TaskManager,
@@ -466,8 +466,8 @@ mod tests {
 		RecordProof,
 	};
 	use node_primitives::{Block, DigestItem, Signature};
-	use node_runtime::{BalancesCall, Call, UncheckedExtrinsic, Address};
-	use node_runtime::constants::{currency::CENTS, time::SLOT_DURATION};
+	use tolak_node_runtime::{BalancesCall, Call, UncheckedExtrinsic, Address};
+	use tolak_node_runtime::constants::{currency::CENTS, time::SLOT_DURATION};
 	use codec::Encode;
 	use sp_core::{crypto::Pair as CryptoPair, H256};
 	use sp_runtime::{
