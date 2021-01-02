@@ -45,7 +45,7 @@ cargo build --release --features runtime-benchmarks
 ./target/release/substrate benchmark --chain dev --pallet "*" --extrinsic "*" --repeat 0
 ```
 
- - run benchmark for a specific pallet(make sure pallet have written pallet benchmark test case) by running:
+ - run benchmark for a specific pallet(make sure pallet have written pallet benchmark test case) by running(pallet-balance for example):
 
  ```sh
 ./target/release/substrate benchmark \
@@ -56,8 +56,7 @@ cargo build --release --features runtime-benchmarks
 --extrinsic "*" \
 --steps 10 \
 --repeat 2 \
---weight-trait \
---output
+--output balance-weights.rs
 ```
 
 This will output a file pallet_name.rs which implements the WeightInfo trait, add definition of WeightInfo in this pallet and give the dispatch a weight notation like this:
