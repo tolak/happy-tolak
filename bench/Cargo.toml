@@ -12,7 +12,7 @@ license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
 log = "0.4.8"
 node-primitives = { version = "2.0.0", path = "../primitives" }
 node-testing = { version = "2.0.0", path = "../testing" }
-node-runtime = { version = "2.0.0", package = "tolak-node-runtime", path = "../runtime" }
+node-runtime = { version = "2.0.0", path = "../runtime" }
 sc-cli = { version = "0.8.0", path = "../substrate/client/cli" }
 sc-client-api = { version = "2.0.0", path = "../substrate/client/api/" }
 sp-runtime = { version = "2.0.0", path = "../substrate/primitives/runtime" }
@@ -29,7 +29,6 @@ sp-consensus = { version = "0.8.0", path = "../substrate/primitives/consensus/co
 sp-transaction-pool = { version = "2.0.0", path = "../substrate/primitives/transaction-pool" }
 sc-basic-authorship = { version = "0.8.0", path = "../substrate/client/basic-authorship" }
 sp-inherents = { version = "2.0.0", path = "../substrate/primitives/inherents" }
-sp-finality-tracker = { version = "2.0.0", default-features = false, path = "../substrate/primitives/finality-tracker" }
 sp-timestamp = { version = "2.0.0", default-features = false, path = "../substrate/primitives/timestamp" }
 sp-tracing = { version = "2.0.0", path = "../substrate/primitives/tracing" }
 hash-db = "0.15.2"

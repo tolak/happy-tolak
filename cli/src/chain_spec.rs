@@ -21,14 +21,14 @@
 use sc_chain_spec::ChainSpecExtension;
 use sp_core::{Pair, Public, crypto::UncheckedInto, sr25519};
 use serde::{Serialize, Deserialize};
-use tolak_node_runtime::{
+use node_runtime::{
 	AuthorityDiscoveryConfig, BabeConfig, BalancesConfig, ContractsConfig, CouncilConfig,
 	DemocracyConfig,GrandpaConfig, ImOnlineConfig, SessionConfig, SessionKeys, StakerStatus,
 	StakingConfig, ElectionsConfig, IndicesConfig, SocietyConfig, SudoConfig, SystemConfig,
 	TechnicalCommitteeConfig, wasm_binary_unwrap,
 };
-use tolak_node_runtime::Block;
-use tolak_node_runtime::constants::currency::*;
+use node_runtime::Block;
+use node_runtime::constants::currency::*;
 use sc_service::ChainType;
 use hex_literal::hex;
 use sc_telemetry::TelemetryEndpoints;
@@ -39,7 +39,7 @@ use sp_authority_discovery::AuthorityId as AuthorityDiscoveryId;
 use sp_runtime::{Perbill, traits::{Verify, IdentifyAccount}};
 
 pub use node_primitives::{AccountId, Balance, Signature};
-pub use tolak_node_runtime::GenesisConfig;
+pub use node_runtime::GenesisConfig;
 
 type AccountPublic = <Signature as Verify>::Signer;
 
@@ -218,7 +218,7 @@ pub fn testnet_genesis(
 	endowed_accounts: Option<Vec<AccountId>>,
 	enable_println: bool,
 ) -> GenesisConfig {
-	let endowed_accounts: Vec<AccountId> = endowed_accounts.unwrap_or_else(|| {
+	let mut endowed_accounts: Vec<AccountId> = endowed_accounts.unwrap_or_else(|| {
 		vec![
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			get_account_id_from_seed::<sr25519::Public>("Bob"),
@@ -234,10 +234,16 @@ pub fn testnet_genesis(
 			get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
 		]
 	});
+	initial_authorities.iter().for_each(|x|
+		if !endowed_accounts.contains(&x.0) {
+			endowed_accounts.push(x.0.clone())
+		}
+	);
+
 	let num_endowed_accounts = endowed_accounts.len();
 
 	const ENDOWMENT: Balance = 10_000_000 * DOLLARS;
-	const STASH: Balance = 100 * DOLLARS;
+	const STASH: Balance = ENDOWMENT / 1000;
 
 	GenesisConfig {
 		frame_system: Some(SystemConfig {
@@ -246,9 +252,8 @@ pub fn testnet_genesis(
 		}),
 		pallet_balances: Some(BalancesConfig {
 			balances: endowed_accounts.iter().cloned()
-				.map(|k| (k, ENDOWMENT))
-				.chain(initial_authorities.iter().map(|x| (x.0.clone(), STASH)))
-				.collect(),
+				.map(|x| (x, ENDOWMENT))
+				.collect()
 		}),
 		pallet_indices: Some(IndicesConfig {
 			indices: vec![],

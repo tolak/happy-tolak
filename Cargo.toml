@@ -9,10 +9,8 @@ exclude = [
 members = [
 	"executor",
 	"inspect",
-	"node",
 	"primitives",
 	"rpc",
 	"runtime",
-	"pallets/asset-claim",
 	"cli",
 ]

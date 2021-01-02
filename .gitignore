@@ -3,3 +3,7 @@
 target
 
 .secure
+
+db
+
+tolak_node_runtime.wasm

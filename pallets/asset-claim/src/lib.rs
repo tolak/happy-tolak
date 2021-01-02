@@ -17,8 +17,8 @@ pub trait WeightInfo {
 }
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
-pub trait Trait: frame_system::Trait {
-    type Event: From<Event<Self>> + Into<<Self as frame_system::Trait>::Event>;
+pub trait Trait: frame_system::Config {
+    type Event: From<Event<Self>> + Into<<Self as frame_system::Config>::Event>;
     type ReserveCurrency: Currency<Self::AccountId>;
     /// Weight information for the extrinsics in this pallet.
 	type WeightInfo: WeightInfo;
@@ -35,7 +35,7 @@ decl_storage! {
 
 decl_event! {
     pub enum Event<T> where 
-        AccountId = <T as frame_system::Trait>::AccountId
+        AccountId = <T as frame_system::Config>::AccountId
     {
         /// Event emitted when a asset proof has been claimed. [who, claim]
         ClaimCreated(AccountId, Vec<u8>),

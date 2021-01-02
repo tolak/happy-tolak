@@ -24,7 +24,7 @@ pallet-indices = { version = "2.0.0", path = "../substrate/frame/indices" }
 sp-keyring = { version = "2.0.0", path = "../substrate/primitives/keyring" }
 node-executor = { version = "2.0.0", path = "../executor" }
 node-primitives = { version = "2.0.0", path = "../primitives" }
-node-runtime = { version = "2.0.0", package = "tolak-node-runtime", path = "../runtime" }
+node-runtime = { version = "2.0.0", path = "../runtime" }
 sp-core = { version = "2.0.0", path = "../substrate/primitives/core" }
 sp-io = { version = "2.0.0", path = "../substrate/primitives/io" }
 frame-support = { version = "2.0.0", path = "../substrate/frame/support" }
@@ -40,7 +40,6 @@ pallet-timestamp = { version = "2.0.0", path = "../substrate/frame/timestamp" }
 pallet-transaction-payment = { version = "2.0.0", path = "../substrate/frame/transaction-payment" }
 pallet-treasury = { version = "2.0.0", path = "../substrate/frame/treasury" }
 sp-api = { version = "2.0.0", path = "../substrate/primitives/api" }
-sp-finality-tracker = { version = "2.0.0", default-features = false, path = "../substrate/primitives/finality-tracker" }
 sp-timestamp = { version = "2.0.0", default-features = false, path = "../substrate/primitives/timestamp" }
 sp-block-builder = { version = "2.0.0", path = "../substrate/primitives/block-builder" }
 sc-block-builder = { version = "0.8.0", path = "../substrate/client/block-builder" }
