@@ -52,11 +52,11 @@ cargo build --release --features runtime-benchmarks
 --chain dev \
 --execution=wasm \
 --wasm-execution=compiled \
---pallet pallet_balances \
+--pallet asset_claim \
 --extrinsic "*" \
 --steps 10 \
 --repeat 2 \
---output balance-weights.rs
+--output pallets/asset-claim/src/weights.rs
 ```
 
 This will output a file pallet_name.rs which implements the WeightInfo trait, add definition of WeightInfo in this pallet and give the dispatch a weight notation like this:
