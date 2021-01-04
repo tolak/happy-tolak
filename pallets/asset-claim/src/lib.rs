@@ -17,7 +17,7 @@ pub trait WeightInfo {
 }
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
-pub trait Trait: frame_system::Config {
+pub trait Config: frame_system::Config {
     type Event: From<Event<Self>> + Into<<Self as frame_system::Config>::Event>;
     type ReserveCurrency: Currency<Self::AccountId>;
     /// Weight information for the extrinsics in this pallet.
