@@ -193,6 +193,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "asset-claim"
+version = "0.1.0"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "async-channel"
 version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3743,6 +3756,7 @@ dependencies = [
 name = "node-runtime"
 version = "2.0.0"
 dependencies = [
+ "asset-claim",
  "frame-benchmarking",
  "frame-executive",
  "frame-support",

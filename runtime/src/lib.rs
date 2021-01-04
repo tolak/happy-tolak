@@ -955,6 +955,12 @@ impl pallet_assets::Config for Runtime {
 	type WeightInfo = pallet_assets::weights::SubstrateWeight<Runtime>;
 }
 
+impl asset_claim::Config for Runtime {
+	type Event = Event;
+	type ReserveCurrency = Balances;
+	type WeightInfo = asset_claim::weights::SubstrateWeight<Runtime>;
+}
+
 construct_runtime!(
 	pub enum Runtime where
 		Block = Block,
@@ -996,6 +1002,7 @@ construct_runtime!(
 		Tips: pallet_tips::{Module, Call, Storage, Event<T>},
 		Assets: pallet_assets::{Module, Call, Storage, Event<T>},
 		Mmr: pallet_mmr::{Module, Storage},
+		AssetClaim: asset_claim::{Module, Call, Storage, Event<T>},
 	}
 );
 
@@ -1291,6 +1298,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_treasury, Treasury);
 			add_benchmark!(params, batches, pallet_utility, Utility);
 			add_benchmark!(params, batches, pallet_vesting, Vesting);
+			add_benchmark!(params, batches, asset_claim, AssetClaim);
 
 			if batches.is_empty() { return Err("Benchmark not found for this pallet.".into()) }
 			Ok(batches)

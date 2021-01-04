@@ -1,31 +1,29 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+#[macro_use]
+mod benchmarking;
+pub mod weights;
+
 use sp_std::vec::Vec;
 use sp_runtime::DispatchResult;
 
 use frame_support::{
     decl_module, decl_storage, decl_event, decl_error, ensure, StorageMap,
     traits::Currency,
-    weights::Weight,
 };
 use frame_system::ensure_signed;
 
-pub trait WeightInfo {
-	fn create_claim() -> Weight;
-	fn revoke_claim() -> Weight;
-	fn transfer_claim() -> Weight;
-}
+pub use weights::WeightInfo;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
 pub trait Config: frame_system::Config {
     type Event: From<Event<Self>> + Into<<Self as frame_system::Config>::Event>;
     type ReserveCurrency: Currency<Self::AccountId>;
-    /// Weight information for the extrinsics in this pallet.
-	type WeightInfo: WeightInfo;
+    type WeightInfo: WeightInfo;
 }
 
 decl_storage! {
-    trait Store for Module<T: Trait> as AssetClaimModule {
+    trait Store for Module<T: Config> as AssetClaimModule {
         /// It maps a asset proof to the user who made the claim and when they claim it.
         /// Here we use a Vec<u8> to storage a asset proof, this proof maybe just a hash
         /// or even a smart contract address of Ethereum.
@@ -47,7 +45,7 @@ decl_event! {
 }
 
 decl_error! {
-    pub enum Error for Module<T: Trait> {
+    pub enum Error for Module<T: Config> {
         /// The asset has already been claimed.
         AssetAlreadyClaimed,
         /// The asset does not exist, so it cannot be revoked.
@@ -60,7 +58,7 @@ decl_error! {
 }
 
 decl_module! {
-    pub struct Module<T: Trait> for enum Call where origin: T::Origin {
+    pub struct Module<T: Config> for enum Call where origin: T::Origin {
         type Error = Error<T>;
 
         fn deposit_event() = default;

@@ -14,9 +14,9 @@ serde = { version = "1.0.102", optional = true, features = ["derive"] }
 sp-std = { version = "2.0.0", default-features = false, path = "../../substrate/primitives/std" }
 sp-runtime = { version = "2.0.0", default-features = false, path = "../../substrate/primitives/runtime" }
 
+frame-benchmarking = { version = "2.0.0", default-features = false, path = "../../substrate/frame/benchmarking", optional = true }
 frame-support = { version = "2.0.0", default-features = false, path = "../../substrate/frame/support" }
 frame-system = { version = "2.0.0", default-features = false, path = "../../substrate/frame/system" }
-
 
 [features]
 default = ['std']
@@ -25,6 +25,8 @@ std = [
     'serde',
     'sp-std/std',
     'sp-runtime/std',
+    "frame-benchmarking/std",
     'frame-support/std',
     'frame-system/std',
 ]
+runtime-benchmarks = ["frame-benchmarking"]
