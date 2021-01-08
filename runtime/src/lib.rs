@@ -961,6 +961,48 @@ impl asset_claim::Config for Runtime {
 	type WeightInfo = asset_claim::weights::SubstrateWeight<Runtime>;
 }
 
+// Define the transaction signer using the key definition
+type SubmitTransaction = system::offchain::TransactionSubmitter<
+	ocw::crypto::Public, Runtime, UncheckedExtrinsic>;
+
+impl wcw::Config for Runtime {
+	type Event = Event;
+	type Call = Call;
+	// To use signed transactions in your runtime
+	type SubmitSignedTransaction = SubmitTransaction;
+	// To use unsigned transactions in your runtime
+	type SubmitUnsignedTransaction = SubmitTransaction;
+}
+
+impl system::offchain::CreateTransaction<Runtime, UncheckedExtrinsic> for Runtime {
+	type Public = <Signature as Verify>::Signer;
+	type Signature = Signature;
+
+	fn create_transaction<TSigner: system::offchain::Signer<Self::Public, Self::Signature>> (
+		call: Call,
+		public: Self::Public,
+		account: AccountId,
+		index: Index,
+	) -> Option<(Call, <UncheckedExtrinsic as sp_runtime::traits::Extrinsic>::SignaturePayload)> {
+		let period = 1 << 8;
+		let current_block = System::block_number().saturated_into::<u64>();
+		let tip = 0;
+		let extra: SignedExtra = (
+			system::CheckVersion::<Runtime>::new(),
+			system::CheckGenesis::<Runtime>::new(),
+			system::CheckEra::<Runtime>::from(generic::Era::mortal(period, current_block)),
+			system::CheckNonce::<Runtime>::from(index),
+			system::CheckWeight::<Runtime>::new(),
+			transaction_payment::ChargeTransactionPayment::<Runtime>::from(tip),
+		);
+		let raw_payload = SignedPayload::new(call, extra).ok()?;
+		let signature = TSigner::sign(public, &raw_payload)?;
+		let address = Indices::unlookup(account);
+		let (call, extra, _) = raw_payload.deconstruct();
+		Some((call, (address, signature, extra)))
+	}
+  }
+
 construct_runtime!(
 	pub enum Runtime where
 		Block = Block,
@@ -1003,6 +1045,7 @@ construct_runtime!(
 		Assets: pallet_assets::{Module, Call, Storage, Event<T>},
 		Mmr: pallet_mmr::{Module, Storage},
 		AssetClaim: asset_claim::{Module, Call, Storage, Event<T>},
+		OCW: ocw::{ Module, Call, Storage, Event<T>, transaction_validity::ValidateUnsigned },
 	}
 );
 
