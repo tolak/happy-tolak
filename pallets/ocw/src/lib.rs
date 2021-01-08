@@ -36,6 +36,12 @@ decl_module! {
 
 		// function to be called back in the next block import phase
 		fn offchain_worker(block: T::BlockNumber) {
+			debug::info!("Execute offchain_worker callback at block: {}", block);
+			match Self::fetch_data() {
+				Ok(res) => debug::info!("Result: {}", core::str::from_utf8(&res).unwrap()),
+				Err(e) => debug::error!("Error fetch_data: {}", e),
+			};
+
 			let call = Call::onchain_callback(block, b"hello world!".to_vec());
 			T::SubmitSignedTransaction::submit_signed(call);
 			// submit unsigned transaction to chain
@@ -63,6 +69,29 @@ decl_module! {
 // 	}
 // 	}
 // }
+
+impl<T: Config> Module<T> {
+	fn fetch_data() -> Result<Vec<u8>, &'static str> {
+
+		// Specifying the request
+		let pending = http::Request::get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD")
+		.send()
+		.map_err(|_| "Error in sending http GET request")?;
+
+		// Waiting for the response
+		let response = pending.wait()
+		.map_err(|_| "Error in waiting http response back")?;
+
+		// Check if the HTTP response is okay
+		if response.code != 200 {
+			debug::warn!("Unexpected status code: {}", response.code);
+			return Err("Non-200 status code returned from http request");
+		}
+
+		// Collect the result in the form of bytes
+		Ok(response.body().collect::<Vec<u8>>())
+	}
+}
 
 #[cfg(test)]
 mod tests {
