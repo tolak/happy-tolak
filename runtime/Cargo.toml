@@ -84,6 +84,7 @@ pallet-vesting = { version = "2.0.0", default-features = false, path = "../subst
 
 # custom pallets
 asset-claim = { version = "0.1.0", default-features = false, path = "../pallets/asset-claim" }
+ocw = { version = "0.1.0", default-features = false, path = "../pallets/ocw" }
 
 [build-dependencies]
 substrate-wasm-builder = { version = "3.0.0", path = "../substrate/utils/wasm-builder" }
@@ -153,6 +154,7 @@ std = [
 	"pallet-recovery/std",
 	"pallet-vesting/std",
 	"asset-claim/std",
+	"ocw/std",
 ]
 runtime-benchmarks = [
 	"frame-benchmarking",
