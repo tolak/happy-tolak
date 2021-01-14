@@ -1018,7 +1018,7 @@ construct_runtime!(
 		Assets: pallet_assets::{Module, Call, Storage, Event<T>},
 		Mmr: pallet_mmr::{Module, Storage},
 		AssetClaim: asset_claim::{Module, Call, Storage, Event<T>},
-		OCW: ocw::{ Module, Call, Storage, Event<T> },
+		OCW: ocw::{ Module, Call, Storage, Event<T>, ValidateUnsigned},
 	}
 );
 
