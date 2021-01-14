@@ -7,10 +7,10 @@ exclude = [
 ]
 
 members = [
+	"cli",
 	"executor",
 	"inspect",
 	"primitives",
 	"rpc",
 	"runtime",
-	"cli",
 ]
