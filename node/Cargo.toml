@@ -1,20 +1,20 @@
 [package]
-name = "node-template"
-version = "4.0.0-dev"
-description = "A fresh FRAME-based Substrate node, ready for hacking."
-authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
-homepage = "https://substrate.io/"
+name = "tolak"
+version = "0.1.0"
+description = "Node of tolak"
+authors = ["Wenfeng Wang <https://github.com/tolak>"]
+homepage = "https://github.com/tolak"
 edition = "2021"
 license = "Unlicense"
 publish = false
-repository = "https://github.com/substrate-developer-hub/substrate-node-template/"
+repository = "https://github.com/tolk/happy-tolak.git"
 build = "build.rs"
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
 
 [[bin]]
-name = "node-template"
+name = "tolak"
 
 [dependencies]
 structopt = "0.3.25"
@@ -37,7 +37,7 @@ sc-client-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/su
 sp-runtime = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
 sp-timestamp = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
 
-# These dependencies are used for the node template's RPCs
+# These dependencies are used for the RPCs
 jsonrpc-core = "18.0.0"
 sc-rpc = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
 sp-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
@@ -53,7 +53,7 @@ frame-benchmarking = { version = "4.0.0-dev", git = "https://github.com/parityte
 frame-benchmarking-cli = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
 
 # Local Dependencies
-node-template-runtime = { version = "4.0.0-dev", path = "../runtime" }
+tolak-runtime = { path = "../runtime" }
 
 [build-dependencies]
 substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
@@ -61,5 +61,5 @@ substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/pa
 [features]
 default = []
 runtime-benchmarks = [
-	"node-template-runtime/runtime-benchmarks",
+	"tolak-runtime/runtime-benchmarks",
 ]
