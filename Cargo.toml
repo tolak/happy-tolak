@@ -1,16 +1,8 @@
+[workspace]
+members = [
+    'node',
+    'pallets/template',
+    'runtime',
+]
 [profile.release]
 panic = 'unwind'
-
-[workspace]
-exclude = [
-	"substrate",
-]
-
-members = [
-	"cli",
-	"executor",
-	"inspect",
-	"primitives",
-	"rpc",
-	"runtime",
-]

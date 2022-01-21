@@ -1,71 +1,53 @@
-# Tolak Chain
+# Happy Tolak
 
-Tolak Chain is a substrate FRAME based chain build for tolak, for study and new feature test
+This repo contains everything i'd like to play with substrate.
 
+## Build & run
 
-# Developer build
+- Build
 
- - Config you rustup toolchain
-
- ```sh
-rustup install nightly-2020-10-06
-rustup default nightly-2020-10-06
-rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-06
- ```
-
- - Build release node binary
- 
 ```sh
 cargo build --release
 ```
 
-Then you can run ```tolak-node``` under ```target/release/```.
-
- - Build a single WASM
-
- ```sh
- ./script/build-only-wasm.sh tolak-node-runtime
- ```
-
- Argument ```tolak-node-runtime``` is the package name of runtime. By default you 
- can see WASM file ```tolak_node_runtime.wasm``` was created in current directory.
-
-# Run benchmarks
-
- - Enable benchmarks by running:
-
- ```sh
-cd cli
-cargo build --release --features runtime-benchmarks
- ```
-
- - Get a list of the available benchmarks by running:
+- Run
 
 ```sh
-./target/release/substrate benchmark --chain dev --pallet "*" --extrinsic "*" --repeat 0
+cargo run --dev
 ```
 
- - run benchmark for a specific pallet(make sure pallet have written pallet benchmark test case) by running(pallet-balance for example):
+- Purge the development chain's state:
 
- ```sh
-./target/release/substrate benchmark \
---chain dev \
---execution=wasm \
---wasm-execution=compiled \
---pallet asset_claim \
---extrinsic "*" \
---steps 10 \
---repeat 2 \
---output pallets/asset-claim/src/weights.rs
+```bash
+./target/release/node-template purge-chain --dev
 ```
 
-This will output a file pallet_name.rs which implements the WeightInfo trait, add definition of WeightInfo in this pallet and give the dispatch a weight notation like this:
+- Start the development chain with detailed logging:
 
-```sh
-#[weight = T::WeightInfo::revoke_claim()]
-fn revoke_claim(origin, proof: Vec<u8>) {
-    // dispatch stuff
-}
+```bash
+RUST_BACKTRACE=1 ./target/release/node-template -ldebug --dev
 ```
 
-More information about substrate benchmarking can be found [here](https://github.com/paritytech/substrate/tree/master/frame/benchmarking)
+## Run in Docker
+
+Then run the following command to start a single node development chain.
+
+```bash
+./scripts/docker_run.sh
+```
+
+This command will firstly compile your code, and then start a local development network. You can
+also replace the default command
+(`cargo build --release && ./target/release/node-template --dev --ws-external`)
+by appending your own. A few useful ones are as follow.
+
+```bash
+# Run Substrate node without re-compiling
+./scripts/docker_run.sh ./target/release/node-template --dev --ws-external
+
+# Purge the local dev chain
+./scripts/docker_run.sh ./target/release/node-template purge-chain --dev
+
+# Check whether the code is compilable
+./scripts/docker_run.sh cargo check
+```
