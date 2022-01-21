@@ -19,44 +19,44 @@ name = "tolak"
 [dependencies]
 structopt = "0.3.25"
 
-sc-cli = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-core = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-executor = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-service = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-telemetry = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-keystore = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-transaction-pool = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-transaction-pool-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-consensus-aura = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-consensus-aura = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-consensus = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-consensus = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-finality-grandpa = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-finality-grandpa = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-client-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-runtime = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-timestamp = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
+sc-cli = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-core = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-executor = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-service = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-telemetry = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-keystore = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-transaction-pool = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-transaction-pool-api = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-consensus-aura = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-consensus-aura = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-consensus = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-consensus = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-finality-grandpa = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-finality-grandpa = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-client-api = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-runtime = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-timestamp = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
 
 # These dependencies are used for the RPCs
 jsonrpc-core = "18.0.0"
-sc-rpc = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-rpc-api = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-blockchain = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sp-block-builder = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-sc-basic-authorship = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-substrate-frame-rpc-system = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-pallet-transaction-payment-rpc = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
+sc-rpc = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-api = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-rpc-api = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-blockchain = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sp-block-builder = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+sc-basic-authorship = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+substrate-frame-rpc-system = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+pallet-transaction-payment-rpc = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
 
 # These dependencies are used for runtime benchmarking
-frame-benchmarking = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
-frame-benchmarking-cli = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
+frame-benchmarking = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
+frame-benchmarking-cli = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
 
 # Local Dependencies
 tolak-runtime = { path = "../runtime" }
 
 [build-dependencies]
-substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/paritytech/substrate.git", tag = "devhub/latest" }
+substrate-build-script-utils = { branch = "polkadot-v0.9.15", git = "https://github.com/paritytech/substrate.git" }
 
 [features]
 default = []
