@@ -28,7 +28,7 @@ pallet-transaction-payment = { branch = "polkadot-v0.9.15", default-features = f
 frame-executive = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 sp-api = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 sp-block-builder = {  branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git"}
-sp-consensus-aura = { version = "0.10.0-dev", default-features = false, git = "https://github.com/paritytech/substrate.git" }
+sp-consensus-aura = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 sp-core = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 sp-inherents = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git"}
 sp-offchain = { branch = "polkadot-v0.9.15", default-features = false, git = "https://github.com/paritytech/substrate.git" }

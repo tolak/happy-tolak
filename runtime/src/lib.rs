@@ -278,15 +278,15 @@ construct_runtime!(
 		NodeBlock = opaque::Block,
 		UncheckedExtrinsic = UncheckedExtrinsic
 	{
-		System: frame_system::{Pallet, Call, Config, Storage, Event<T>} = 0,
-        Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent} = 1,
+		System: frame_system::{Pallet, Call, Storage, Config, Event<T>} = 0,
+        Timestamp: pallet_timestamp::{Pallet, Storage, Call, Inherent} = 1,
 		RandomnessCollectiveFlip: pallet_randomness_collective_flip::{Pallet, Storage} = 2,
 
 		Aura: pallet_aura::{Pallet, Storage, Config<T>} = 10,
-		Grandpa: pallet_grandpa::{Pallet, Storage, Config<T>} = 11,
+		Grandpa: pallet_grandpa::{Pallet, Call, Storage, Config, Event, ValidateUnsigned} = 11,
 
 		Balances: pallet_balances::{Pallet, Call, Storage, Config<T>, Event<T>} = 20,
-		TransactionPayment: pallet_transaction_payment::{Pallet, Storage} = 21,
+		TransactionPayment: pallet_transaction_payment::{Pallet, Storage, Config} = 21,
 
 		Sudo: pallet_sudo::{Pallet, Call, Storage, Config<T>, Event<T>} = 99,
 	}
