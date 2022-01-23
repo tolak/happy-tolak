@@ -1,0 +1,1 @@
+console.log(`Start to run e2e tests...`);
